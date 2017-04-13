@@ -1,0 +1,31 @@
+#include<iostream>
+#include<stdlib.h>
+#include<unistd.h>
+
+using namespace std;
+
+int main(void)
+{
+	system("df -h");
+	sleep(10);
+	system("sudo mkdir /mnt/usb3");
+	sleep(10);
+	system("sudo mount /dev/sdb2 /mnt/usb3 -t vfat");
+	sleep(10);
+	cout<<"Mounted successfully"<<endl;
+	system("sudo tar xfvz ploplinux-4.3.1-x86_64.tgz");
+	sleep(10);
+	system("sudo cp -a -v -r ploplinux-4.3.1-x86_64/ /mnt/usb3");
+	sleep(10);
+	cout<<"Copying extracted files"<<endl;
+	system("sudo umount /mnt/usb3");
+	sleep(10);
+	cout<<"Unmounted disk successfully"<<endl;
+	system("sudo syslinux /dev/sdb2");
+	sleep(10);
+	cout<<"Makes partition bootable"<<endl;
+	system("sudo fdisk /dev/sdb");
+	cout<<"To activate boot flag for the boot partition"<<endl;
+	return 0;
+
+}
